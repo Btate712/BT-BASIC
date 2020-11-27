@@ -50,10 +50,12 @@ class Scanner {
       let i = 1;
       while(this.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
         if(this.code[this.currentIndex + i] == ".") {
+          if(foundDecimal) {
+            throw("Error - invalid number");
+          }
           foundDecimal = true;
         }
         numberString = numberString + this.code[this.currentIndex + i];
-        console.log(numberString);
         i++;
       }
       this.currentTokenValue = foundDecimal ? parseFloat(numberString) : parseInt(numberString);
@@ -63,7 +65,6 @@ class Scanner {
   getCurrentTokenLength() {
     if(this.currentTokenType = "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
-      console.log("Length is " + length)
       return (length);
     }
   }

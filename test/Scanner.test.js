@@ -18,3 +18,8 @@ test("Can identify a numeric floating value token", () => {
   expect(scanner.getTokens()[0].getType()).toEqual("NUMBER");
   expect(scanner.getTokens()[0].toString()).toEqual("NUMBER: 11.94");
 });
+
+test("Throws error for invalid numeric input", () => {
+  let scanner = new Scanner("2321.23.323");
+  expect(() => scanner.tokenize()).toThrow();
+});

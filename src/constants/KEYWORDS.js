@@ -54,7 +54,7 @@ const KEYWORDS = {
   },
   TOKEN_TYPES: {
     IDENTIFIER: {
-      doc: "Token type that indicates that its value is a variable name"
+      doc: "Token type that indicates that its value is a keyword / reserved type"
     }, 
     STRING: {
       doc: "Token type that indicates that its value is a string"
