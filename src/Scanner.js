@@ -7,6 +7,10 @@ class Scanner {
     this.code = code;
   }
 
+  tokenize() {
+    this.tokens = this.code.split(" ");
+  }
+
   getTokens() {
     return this.tokens;
   }
