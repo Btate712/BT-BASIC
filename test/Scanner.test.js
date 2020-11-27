@@ -5,8 +5,9 @@ test("Should be able to instantiate a Scanner", () => {
   expect(scanner.getTokens()).toEqual([]);
 })
 
-test("Should split code into tokens", () => {
-  let scanner = new Scanner("PRINT \"Hello\"");
+test("Can identify a numeric token", () => {
+  let scanner = new Scanner("805");
   scanner.tokenize();
-  expect(scanner.getTokens().length).toBe(2);
-});
+  expect(scanner.getTokens()[0].getType()).toEqual("NUMBER");
+  expect(scanner.getTokens()[0].toString()).toEqual("NUMBER: 805");
+})

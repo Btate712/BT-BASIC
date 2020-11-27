@@ -7,6 +7,10 @@ class Token {
   toString() {
     return `${self.type}: ${self.value}`;
   }
+
+  getType() {
+    return self.type;
+  }
 }
 
 module.exports = Token;
