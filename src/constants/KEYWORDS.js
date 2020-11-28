@@ -1,56 +1,74 @@
 const KEYWORDS = {
   CHARACTERS: {
     LEFT_PAREN: {
-      doc: "Left parenthases used to indicate order of operations"
-    }, 
+      doc: "Left parenthases used to indicate order of operations",
+      symbol: "("
+    },
     RIGHT_PAREN: {
-      doc: "Right parenthases used to indicate order of operations"
-    }, 
+      doc: "Right parenthases used to indicate order of operations",
+      symbol: ")"
+    },
     DOT: {
-      doc: "Decimal point used in floating point numbers"
-    }, 
+      doc: "Decimal point used in floating point numbers",
+      symbol: "."
+    },
     MINUS: {
-      doc: "'-' operator, used for subtraction or negation"
-    }, 
+      doc: "'-' operator, used for subtraction or negation",
+      symbol: "-"
+    },
     PLUS: {
-      doc: "'+' operator, used for addition and for concatenation of strings"
+      doc: "'+' operator, used for addition and for concatenation of strings",
+      symbol: "+"
     }, 
     DIVIDE: {
-      doc: "'/' operator, used for division"
-    }, 
+      doc: "'/' operator, used for division",
+      symbol: "/"
+    },
     MULTIPLY: {
-      doc: "'*' operator, used for multiplication"
+      doc: "'*' operator, used for multiplication",
+      symbol: "*"
     },
     BANG: {
-      doc: "'!' boolean operator, used to denote the logical 'not'"
-    }, 
+      doc: "'!' boolean operator, used to denote the logical 'not'",
+      symbol: "!"
+    },
     BANG_EQUAL: {
-      doc: "'!=' boolean operator, used to check if two values are not equal"
+      doc: "'!=' boolean operator, used to check if two values are not equal",
+      symbol: "!="
     },
     EQUAL: {
-      doc: "'=' operator, used for assignment"
-    }, 
+      doc: "'=' operator, used for assignment",
+      symbol: "="
+    },
     EQUAL_EQUAL: {
-      doc: "'==' boolean operator, used to check equality"
+      doc: "'==' boolean operator, used to check equality",
+      symbol: "=="
     },
     GREATER: {
-      doc: "'>' boolean operator, used to check if a value is greater than another value"
-    }, 
+      doc: "'>' boolean operator, used to check if a value is greater than another value",
+      symbol: ">"
+    },
     GREATER_EQUAL: {
-      doc: "'>=' boolean operator, used to check if a value is greater than or equal to another value"
+      doc: "'>=' boolean operator, used to check if a value is greater than or equal to another value",
+      symbol: ">="
     },
     LESS: {
-      doc: "'<' boolean operator, used to check if a value is less than another value"
-    }, 
+      doc: "'<' boolean operator, used to check if a value is less than another value",
+      symbol: "<"
+    },
     LESS_EQUAL: {
-      doc: "'<=' boolean operator, used to check if a value is greater than or equal to another value"
+      doc: "'<=' boolean operator, used to check if a value is greater than or equal to another value",
+      symbol: "<="
     },
     AND: {
-      doc: "'&&' boolean operator, used to check if both values are true"
+      doc: "'&' boolean operator, used to check if both values are true",
+      symbol: "&"
     },
     OR: {
-      doc: "'||' boolean operator, used to check if both values are false"
+      doc: "'|' boolean operator, used to check if both values are false",
+      symbol: "|"
     }
+
   },
   LITERALS: {
     IDENTIFIER: {
@@ -110,3 +128,5 @@ const KEYWORDS = {
     }
   }
 }
+
+module.exports = KEYWORDS;

@@ -34,3 +34,22 @@ test("Can identify a string value token and an integer value token", () => {
   expect(scanner.getTokens()[0]).toEqual("STRING: Hello");
   expect(scanner.getTokens()[1]).toEqual("NUMBER: 12345");
 });
+
+test("Can look ahead one character", () => {
+  let scanner = new Scanner("12345");
+  expect(scanner.lookAhead()).toEqual("2");
+});
+
+test("Can check last token added", () => {
+  let scanner = new Scanner("\"Hello\" 123 234 567");
+  scanner.tokenize();
+  expect(scanner.lastToken()).toEqual("NUMBER: 567");
+});
+
+test("Can identify symbols found in KEYWORDS", () => {
+  let scanner = new Scanner("(123)");
+  scanner.tokenize();
+  expect(scanner.getTokens()[0]).toEqual("LEFT_PAREN: NULL");
+  expect(scanner.getTokens()[1]).toEqual("NUMBER: 123");
+  expect(scanner.getTokens()[2]).toEqual("RIGHT_PAREN: NULL")
+});
