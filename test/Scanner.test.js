@@ -47,9 +47,12 @@ test("Can check last token added", () => {
 });
 
 test("Can identify symbols found in KEYWORDS", () => {
-  let scanner = new Scanner("(123)");
+  let scanner = new Scanner("(123 + 245)");
   scanner.tokenize();
   expect(scanner.getTokens()[0]).toEqual("LEFT_PAREN: NULL");
   expect(scanner.getTokens()[1]).toEqual("NUMBER: 123");
-  expect(scanner.getTokens()[2]).toEqual("RIGHT_PAREN: NULL")
+  expect(scanner.getTokens()[2]).toEqual("PLUS: NULL");
+  expect(scanner.getTokens()[3]).toEqual("NUMBER: 245");
+  expect(scanner.getTokens()[4]).toEqual("RIGHT_PAREN: NULL");
+
 });
