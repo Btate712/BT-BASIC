@@ -12,7 +12,7 @@ class Token {
     return self.type;
   }
 
-  static split(inputString) {
+  static fromString(inputString) {
     const parts = inputString.split(": ");
     return new Token(parts[0], parts[1]);
   }

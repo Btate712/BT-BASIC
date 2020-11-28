@@ -11,5 +11,5 @@ test("Can return its type", () => {
 });
 
 test("Can create a new token from a string", () => {
-  expect(Token.split("NUMBER: 56").toString()).toEqual("NUMBER: 56");
+  expect(Token.fromString("NUMBER: 56").toString()).toEqual("NUMBER: 56");
 });
