@@ -63,7 +63,7 @@ class Scanner {
   }
 
   getCurrentTokenLength() {
-    if(this.currentTokenType = "NUMBER") {
+    if(this.currentTokenType == "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
       return (length);
     }
