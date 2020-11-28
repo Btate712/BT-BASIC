@@ -11,6 +11,11 @@ class Token {
   getType() {
     return self.type;
   }
+
+  static split(inputString) {
+    const parts = inputString.split(": ");
+    return new Token(parts[0], parts[1]);
+  }
 }
 
 module.exports = Token;

@@ -9,3 +9,7 @@ test("Can return its type", () => {
   const t = new Token("INTEGER", 5);
   expect(t.getType()).toEqual("INTEGER");
 });
+
+test("Can create a new token from a string", () => {
+  expect(Token.split("NUMBER: 56").toString()).toEqual("NUMBER: 56");
+});
