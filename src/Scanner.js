@@ -15,7 +15,7 @@ class Scanner {
       if(this.code[this.currentIndex] != " ") {
         this.setCurrentTokenInfo();
         const token = new Token(this.currentTokenType, this.currentTokenValue);
-        this.tokens.push(token);
+        this.tokens.push(token.toString());
         this.currentIndex += this.getCurrentTokenLength();
         this.resetCurrentToken();
       } else {
@@ -36,7 +36,9 @@ class Scanner {
   setCurrentTokenType() {
     if(this.isNumeric(this.code[this.currentIndex])) {
       this.currentTokenType = "NUMBER";
-    } 
+    } else if (this.code[this.currentIndex] == "\"") {
+      this.currentTokenType = "STRING";
+    }
   }
 
   isNumeric(character) {
@@ -59,12 +61,21 @@ class Scanner {
         i++;
       }
       this.currentTokenValue = foundDecimal ? parseFloat(numberString) : parseInt(numberString);
+    } else if (this.currentTokenType == "STRING") {
+      let i = 1;
+      while(this.code[this.currentIndex + i] != "\"" && ((this.currentIndex + i) < this.code.length)) {
+        i++;
+      }
+      this.currentTokenValue = this.code.slice(this.currentIndex + 1, this.currentIndex + i);
     }
   }
 
   getCurrentTokenLength() {
     if(this.currentTokenType == "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
+      return (length);
+    } else if (this.currentTokenType = "STRING") {
+      const length = this.currentTokenValue.length + 2;
       return (length);
     }
   }

@@ -52,9 +52,9 @@ const KEYWORDS = {
       doc: "'||' boolean operator, used to check if both values are false"
     }
   },
-  TOKEN_TYPES: {
+  LITERALS: {
     IDENTIFIER: {
-      doc: "Token type that indicates that its value is a keyword / reserved type"
+      doc: "Token type that indicates that its value is a variable name"
     }, 
     STRING: {
       doc: "Token type that indicates that its value is a string"
