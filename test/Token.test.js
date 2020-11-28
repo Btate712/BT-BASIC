@@ -13,3 +13,7 @@ test("Can return its type", () => {
 test("Can create a new token from a string", () => {
   expect(Token.fromString("NUMBER: 56").toString()).toEqual("NUMBER: 56");
 });
+
+test("Can create a new token from a string containing ': '", () => {
+  expect(Token.fromString("STRING: \"To: Santa\"").toString()).toEqual("STRING: To: Santa");
+});
