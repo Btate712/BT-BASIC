@@ -37,7 +37,7 @@ class Scanner {
   }
   
   setCurrentTokenType() {
-    if(this.isNumeric(this.currentCharacter())) {
+    if(this.isNumeric(this.currentCharacter()) || this.currentCharacter() == '-') {
       this.currentTokenType = "NUMBER";
     } else if (this.currentCharacter() == "\"") {
       this.currentTokenType = "STRING";
