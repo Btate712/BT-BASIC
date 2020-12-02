@@ -26,7 +26,6 @@ class Token {
       parts.pop();
       value = parts.join("");
     }
-    console.log(type, value);
     return new Token(type, value);
   }
 }

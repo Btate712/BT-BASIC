@@ -37,19 +37,17 @@ class Scanner {
   }
   
   setCurrentTokenType() {
-    if(this.isNumeric(this.currentCharacter()) || (
-      this.currentCharacter() == '-') && this.isNumeric(this.lookAhead())
+    if(Symbol.isNumeric(this.currentCharacter()) || (
+      this.currentCharacter() == '-') && Symbol.isNumeric(this.lookAhead())
       ){
       this.currentTokenType = "NUMBER";
     } else if (this.currentCharacter() == "\"") {
       this.currentTokenType = "STRING";
     } else if (Symbol.existsFor(this.currentCharacter())) {
       this.currentTokenType = Symbol.nameFor(this.currentCharacter());
+    } else if(Symbol.isIdentifier(this.currentCharacter())) {
+      this.currentTokenType = "IDENTIFIER";
     }
-  }
-
-  isNumeric(character) {
-    return (character == "0" || !!parseInt(character) || character == ".")
   }
 
   setCurrentTokenValue() {
@@ -57,7 +55,7 @@ class Scanner {
       let foundDecimal = false;
       let numberString = "" + this.currentCharacter();
       let i = 1;
-      while(this.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
+      while(Symbol.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
         if(this.code[this.currentIndex + i] == ".") {
           if(foundDecimal) {
             throw("Error - invalid number");
@@ -74,18 +72,22 @@ class Scanner {
         i++;
       }
       this.currentTokenValue = this.code.slice(this.currentIndex + 1, this.currentIndex + i);
+    } else if (this.currentTokenType == "IDENTIFIER") {
+      this.currentTokenValue = this.determineIdentiferValue();
     } else if (Symbol.isSymbol(this.currentTokenType)) {
       this.currentTokenValue = "NULL";
-    }
+    } 
   }
 
   getCurrentTokenLength() {
     if(this.currentTokenType == "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
-      return (length);
+      return length;
     } else if (this.currentTokenType == "STRING") {
       const length = this.currentTokenValue.length + 2;
-      return (length);
+      return length;
+    } else if (this.currentTokenType == "IDENTIFIER") {
+      return this.currentTokenValue.length;
     } else if (Symbol.existsFor(this.currentCharacter())) {
       return Symbol.lengthOf(this.currentTokenType);
     }
@@ -107,6 +109,15 @@ class Scanner {
 
   currentCharacter() {
     return this.code[this.currentIndex];
+  }
+
+  determineIdentiferValue() {
+    let identifierString = this.currentCharacter();
+    let i = 1;
+    while(Symbol.isAlpha(this.lookAhead()) || Symbol.isNumeric(this.lookAhead())) {
+      identifierString.push(this.code[this.currentIndex + i]);
+    }
+    return identifierString;
   }
 }
 

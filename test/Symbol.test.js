@@ -27,3 +27,9 @@ test("Should determine length of single character symbol", () => {
 test("Should determine length of two character symbol", () => {
   expect(Symbol.lengthOf('BANG_EQUAL')).toBe(2);
 });
+
+test("Should determine if symbol is an identifier", () => {
+  expect(Symbol.isIdentifier("name")).toBeTruthy();
+  expect(Symbol.isIdentifier("\"bob\"")).toBeFalsy();
+  expect(Symbol.isIdentifier("CONSTANT_VALUE")).toBeTruthy();
+});

@@ -14,7 +14,7 @@ class Symbol {
   }
   
   static isSymbol(name) {
-    return !!this.SYMBOL_CHARS[name]["symbol"];
+    return this.SYMBOL_CHARS[name] ? this.SYMBOL_CHARS[name]["symbol"] : false;
   }
 
   static nameFor(character) {
@@ -33,6 +33,19 @@ class Symbol {
 
   static lengthOf(name) {
     return this.SYMBOL_CHARS[name]["symbol"].length;
+  }
+
+  static isAlpha(character) {
+    return !!character.match(/[a-zA-Z_]/i);
+  }
+
+  static isIdentifier(word) {
+    console.log(word[0])
+    return this.isAlpha(word[0]);
+  }
+
+  static isNumeric(character) {
+    return (character == "0" || !!parseInt(character) || character == ".")
   }
 }
 
