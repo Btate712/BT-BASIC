@@ -50,8 +50,7 @@ test("Can identify a string value token", () => {
 test("Can identify a string value token and an integer value token", () => {
   let scanner = new Scanner("\"Hello\" 12345");
   scanner.tokenize();
-  expect(scanner.getTokens()[0]).toEqual("STRING: Hello");
-  expect(scanner.getTokens()[1]).toEqual("NUMBER: 12345");
+  expect(scanner.getTokens()).toEqual(["STRING: Hello", "NUMBER: 12345"]);
 });
 
 test("Can look ahead one character", () => {
@@ -68,17 +67,13 @@ test("Can check last token added", () => {
 test("Can identify symbols found in KEYWORDS", () => {
   let scanner = new Scanner("(123 - 245)");
   scanner.tokenize();
-  expect(scanner.getTokens()[0]).toEqual("LEFT_PAREN: NULL");
-  expect(scanner.getTokens()[1]).toEqual("NUMBER: 123");
-  expect(scanner.getTokens()[2]).toEqual("MINUS: NULL");
-  expect(scanner.getTokens()[3]).toEqual("NUMBER: 245");
-  expect(scanner.getTokens()[4]).toEqual("RIGHT_PAREN: NULL");
+  expect(scanner.getTokens()).toEqual([
+    "LEFT_PAREN: NULL", "NUMBER: 123", "MINUS: NULL", "NUMBER: 245", "RIGHT_PAREN: NULL"]
+  );
 });
 
 test("Can identify variable identifiers", () => {
   let scanner = new Scanner("a = 5.25");
   scanner.tokenize();
-  expect(scanner.getTokens()[0]).toEqual("IDENTIFIER: a");
-  expect(scanner.getTokens()[1]).toEqual("EQUAL: NULL");
-  expect(scanner.getTokens()[2]).toEqual("NUMBER: 5.25");
+  expect(scanner.getTokens()).toEqual(["IDENTIFIER: a", "EQUAL: NULL", "NUMBER: 5.25"]);
 });
