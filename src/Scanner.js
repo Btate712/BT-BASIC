@@ -124,8 +124,13 @@ class Scanner {
   determineIdentiferValue() {
     let identifierString = this.currentCharacter();
     let i = 1;
-    while(Symbol.isAlpha(this.lookAhead()) || Symbol.isNumeric(this.lookAhead())) {
-      identifierString.push(this.code[this.currentIndex + i]);
+
+    while(
+      Symbol.isAlpha(this.code[this.currentIndex + i]) || 
+      Symbol.isNumeric(this.code[this.currentIndex + i])
+      ) {
+      identifierString += this.code[this.currentIndex + i];
+      i++;
     }
     return identifierString;
   }

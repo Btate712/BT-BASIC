@@ -81,4 +81,9 @@ test("Can identify commands", () => {
   expect(scanner.getTokens()).toEqual([
     "LET: NULL", "IDENTIFIER: a", "EQUAL: NULL", "NUMBER: 5"
   ]);
+
+  let scanner2 = new Scanner("NOT_A_COMMAND a = 5");
+  expect(scanner2.getTokens()).toEqual([
+    "IDENTIFIER: NOT_A_COMMAND", "IDENTIFIER: a", "EQUAL: NULL", "NUMBER: 5"
+  ]);
 });
