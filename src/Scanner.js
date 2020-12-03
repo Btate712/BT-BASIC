@@ -10,6 +10,7 @@ class Scanner {
 
   constructor(code) {
     this.code = code;
+    this.tokenize();
   }
 
   tokenize() {
