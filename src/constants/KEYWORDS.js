@@ -119,9 +119,6 @@ const KEYWORDS = {
     },
     FALSE: {
       doc: "Boolean value indicating 'not true'"
-    }, 
-    NIL: {
-      doc: "A placeholder indicating that a variable has not yet been assigned a value"
     },
     EOF: {
       doc: "A value that is optionally supplied at the end of a program to indicate 'end of file'"
