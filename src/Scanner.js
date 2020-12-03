@@ -38,8 +38,8 @@ class Scanner {
   
   setCurrentTokenType() {
     if(Symbol.isNumeric(this.currentCharacter()) || (
-      this.currentCharacter() == '-') && Symbol.isNumeric(this.lookAhead())
-      ){
+      this.currentCharacter() == '-' && this.minusIsNegation()))
+      {
       this.currentTokenType = "NUMBER";
     } else if (this.currentCharacter() == "\"") {
       this.currentTokenType = "STRING";
@@ -104,7 +104,7 @@ class Scanner {
   }
 
   lastToken() {
-    return this.tokens[this.tokens.length - 1];
+    return this.tokens.length > 0 ? this.tokens[this.tokens.length - 1] : undefined;
   }
 
   currentCharacter() {
@@ -118,6 +118,12 @@ class Scanner {
       identifierString.push(this.code[this.currentIndex + i]);
     }
     return identifierString;
+  }
+
+  minusIsNegation() {
+    if(!this.lastToken() || Token.fromString(this.lastToken()).getType() != "NUMBER") {
+      return true;
+    }
   }
 }
 

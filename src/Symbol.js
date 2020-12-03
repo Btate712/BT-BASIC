@@ -40,7 +40,6 @@ class Symbol {
   }
 
   static isIdentifier(word) {
-    console.log(word[0])
     return this.isAlpha(word[0]);
   }
 
