@@ -1,5 +1,6 @@
 const Token = require("./Token.js");
 const Symbol = require("./Symbol.js");
+const Command = require("./Command.js");
 
 class Scanner {
   tokens = [];
@@ -45,7 +46,13 @@ class Scanner {
     } else if (this.currentCharacter() == "\"") {
       this.currentTokenType = "STRING";
     } else if (Symbol.existsFor(this.currentCharacter())) {
-      this.currentTokenType = Symbol.nameFor(this.currentCharacter());
+      if(Symbol.existsFor(`${this.currentCharacter()}${this.lookAhead()}`)) {
+        this.currentTokenType = Symbol.nameFor(`${this.currentCharacter()}${this.lookAhead()}`);
+      } else {
+        this.currentTokenType = Symbol.nameFor(this.currentCharacter());
+      }
+    } else if(Command.isCommand(this.currentWord())) {
+        this.currentTokenType = this.currentWord();
     } else if(Symbol.isIdentifier(this.currentCharacter())) {
       this.currentTokenType = "IDENTIFIER";
     }
@@ -75,7 +82,7 @@ class Scanner {
       this.currentTokenValue = this.code.slice(this.currentIndex + 1, this.currentIndex + i);
     } else if (this.currentTokenType == "IDENTIFIER") {
       this.currentTokenValue = this.determineIdentiferValue();
-    } else if (Symbol.isSymbol(this.currentTokenType)) {
+    } else if (Symbol.isSymbol(this.currentTokenType) || Command.isCommand(this.currentTokenType)) {
       this.currentTokenValue = "NULL";
     } 
   }
@@ -91,6 +98,8 @@ class Scanner {
       return this.currentTokenValue.length;
     } else if (Symbol.existsFor(this.currentCharacter())) {
       return Symbol.lengthOf(this.currentTokenType);
+    } else if (Command.isCommand(this.currentWord())) {
+      return this.currentWord().length;
     }
   }
 
@@ -101,7 +110,7 @@ class Scanner {
   }
 
   lookAhead() {
-    return this.code[this.currentIndex + 1];
+    return this.currentIndex < this.code.length - 1 ? this.code[this.currentIndex + 1] : " ";
   }
 
   lastToken() {
@@ -125,6 +134,17 @@ class Scanner {
     if(!this.lastToken() || Token.fromString(this.lastToken()).getType() != "NUMBER") {
       return true;
     }
+  }
+
+  currentWord() {
+    let i = 1;
+    let word = this.currentCharacter();
+
+    while(this.code[this.currentIndex + i] != " " && this.currentIndex + i < this.code.length) {
+      word += this.code[this.currentIndex + i];
+      i++;
+    }
+    return word;
   }
 }
 

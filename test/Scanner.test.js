@@ -59,7 +59,26 @@ test("Can identify symbols found in KEYWORDS", () => {
   );
 });
 
+test("Can identify multi-character symbols found in KEYWORDS", () => {
+  let scanner = new Scanner("3 <= 4");
+  expect(scanner.getTokens()).toEqual([
+    "NUMBER: 3", "LESS_EQUAL: NULL", "NUMBER: 4"
+  ]);
+
+  let scanner2 = new Scanner("a!=5");
+  expect(scanner2.getTokens()).toEqual([
+    "IDENTIFIER: a", "BANG_EQUAL: NULL", "NUMBER: 5"
+  ]);
+});
+
 test("Can identify variable identifiers", () => {
   let scanner = new Scanner("a = 5.25");
   expect(scanner.getTokens()).toEqual(["IDENTIFIER: a", "EQUAL: NULL", "NUMBER: 5.25"]);
+});
+
+test("Can identify commands", () => {
+  let scanner = new Scanner("LET a = 5");
+  expect(scanner.getTokens()).toEqual([
+    "LET: NULL", "IDENTIFIER: a", "EQUAL: NULL", "NUMBER: 5"
+  ]);
 });
