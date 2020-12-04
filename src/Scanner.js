@@ -96,11 +96,9 @@ class Scanner {
 
   getCurrentTokenLength() {
     if(this.currentTokenType == "NUMBER") {
-      const length = ("" + this.currentTokenValue).length;
-      return length;
+      return ("" + this.currentTokenValue).length;
     } else if (this.currentTokenType == "STRING") {
-      const length = this.currentTokenValue.length + 2;
-      return length;
+      return this.currentTokenValue.length + 2;
     } else if (this.currentTokenType == "IDENTIFIER") {
       return this.currentTokenValue.length;
     } else if (Symbol.existsFor(this.currentCharacter())) {
