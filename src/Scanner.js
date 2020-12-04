@@ -64,7 +64,7 @@ class Scanner {
       this.currentTokenValue = this.extractString();
     } else if (this.currentTokenType == "IDENTIFIER") {
       this.currentTokenValue = this.determineIdentiferValue();
-    } else if (Symbol.isSymbol(this.currentTokenType) || Command.isCommand(this.currentTokenType)) {
+    } else { 
       this.currentTokenValue = "NULL";
     } 
   }
