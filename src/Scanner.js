@@ -138,9 +138,7 @@ class Scanner {
   }
 
   minusIsNegation() {
-    if(!this.lastToken() || Token.fromString(this.lastToken()).getType() != "NUMBER") {
-      return true;
-    }
+    return (!this.lastToken() || Token.fromString(this.lastToken()).getType() != "NUMBER") 
   }
 
   currentWord() {
