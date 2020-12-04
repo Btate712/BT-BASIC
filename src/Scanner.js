@@ -39,13 +39,12 @@ class Scanner {
   }
   
   setCurrentTokenType() {
-    if(Symbol.isNumeric(this.currentCharacter()) || (
-      this.currentCharacter() == '-' && this.minusIsNegation()))
-      {
+    if(Symbol.isNumeric(this.currentCharacter()) || (this.currentCharacter() == '-' && this.minusIsNegation())) {
       this.currentTokenType = "NUMBER";
     } else if (this.currentCharacter() == "\"") {
       this.currentTokenType = "STRING";
     } else if (Symbol.existsFor(this.currentCharacter())) {
+      // check for 2-character symbols (e.g. <=)
       if(Symbol.existsFor(`${this.currentCharacter()}${this.lookAhead()}`)) {
         this.currentTokenType = Symbol.nameFor(`${this.currentCharacter()}${this.lookAhead()}`);
       } else {
@@ -62,11 +61,7 @@ class Scanner {
     if(this.currentTokenType == "NUMBER") {
       this.currentTokenValue = this.extractNumber();
     } else if (this.currentTokenType == "STRING") {
-      let i = 1;
-      while(this.lookAhead(i) != "\"" && ((this.currentIndex + i) < this.code.length)) {
-        i++;
-      }
-      this.currentTokenValue = this.code.slice(this.currentIndex + 1, this.currentIndex + i);
+      this.currentTokenValue = this.extractString();
     } else if (this.currentTokenType == "IDENTIFIER") {
       this.currentTokenValue = this.determineIdentiferValue();
     } else if (Symbol.isSymbol(this.currentTokenType) || Command.isCommand(this.currentTokenType)) {
@@ -89,6 +84,14 @@ class Scanner {
       i++;
     }
     return foundDecimal ? parseFloat(numberString) : parseInt(numberString);
+  }
+
+  extractString() {
+    let i = 1;
+    while(this.lookAhead(i) != "\"" && ((this.currentIndex + i) < this.code.length)) {
+      i++;
+    }
+    return this.code.slice(this.currentIndex + 1, this.currentIndex + i);
   }
 
   getCurrentTokenLength() {
