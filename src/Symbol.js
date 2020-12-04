@@ -1,12 +1,10 @@
-const KEYWORDS = require("./constants/KEYWORDS.js");
+const { CHARACTERS } = require("./constants/KEYWORDS.js");
 
 class Symbol {
-  static SYMBOL_CHARS = KEYWORDS.CHARACTERS;
-
   static existsFor(character) {
     let found = false;
-    Object.keys(this.SYMBOL_CHARS).forEach(key => {
-      if(this.SYMBOL_CHARS[key]["symbol"] == character) {
+    Object.keys(CHARACTERS).forEach(key => {
+      if(CHARACTERS[key]["symbol"] == character) {
         found = true;
       }
     });
@@ -14,13 +12,13 @@ class Symbol {
   }
   
   static isSymbol(name) {
-    return this.SYMBOL_CHARS[name] ? this.SYMBOL_CHARS[name]["symbol"] : false;
+    return CHARACTERS[name] ? CHARACTERS[name]["symbol"] : false;
   }
 
   static nameFor(character) {
     let returnValue = "NOT FOUND";
-    Object.keys(this.SYMBOL_CHARS).forEach(key => {
-      if(this.SYMBOL_CHARS[key]["symbol"] == character) {
+    Object.keys(CHARACTERS).forEach(key => {
+      if(CHARACTERS[key]["symbol"] == character) {
         returnValue = key;
       }
     });
@@ -28,11 +26,11 @@ class Symbol {
   }
 
   static symbolFor(name) {
-    return this.SYMBOL_CHARS[name]["symbol"];
+    return CHARACTERS[name]["symbol"];
   }
 
   static lengthOf(name) {
-    return this.SYMBOL_CHARS[name]["symbol"].length;
+    return CHARACTERS[name]["symbol"].length;
   }
 
   static isAlpha(character) {
