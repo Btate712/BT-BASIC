@@ -60,20 +60,7 @@ class Scanner {
 
   setCurrentTokenValue() {
     if(this.currentTokenType == "NUMBER") {
-      let foundDecimal = false;
-      let numberString = "" + this.currentCharacter();
-      let i = 1;
-      while(Symbol.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
-        if(this.code[this.currentIndex + i] == ".") {
-          if(foundDecimal) {
-            throw("Error - invalid number");
-          }
-          foundDecimal = true;
-        }
-        numberString = numberString + this.code[this.currentIndex + i];
-        i++;
-      }
-      this.currentTokenValue = foundDecimal ? parseFloat(numberString) : parseInt(numberString);
+      this.currentTokenValue = this.extractNumber();
     } else if (this.currentTokenType == "STRING") {
       let i = 1;
       while(this.code[this.currentIndex + i] != "\"" && ((this.currentIndex + i) < this.code.length)) {
@@ -87,6 +74,23 @@ class Scanner {
     } 
   }
 
+  extractNumber() {
+    let foundDecimal = false;
+    let numberString = "" + this.currentCharacter();
+    let i = 1;
+    while(Symbol.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
+      if(this.code[this.currentIndex + i] == ".") {
+        if(foundDecimal) {
+          throw("Error - invalid number");
+        }
+        foundDecimal = true;
+      }
+      numberString = numberString + this.code[this.currentIndex + i];
+      i++;
+    }
+    return foundDecimal ? parseFloat(numberString) : parseInt(numberString);
+  }
+  
   getCurrentTokenLength() {
     if(this.currentTokenType == "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
