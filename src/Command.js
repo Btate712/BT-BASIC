@@ -1,5 +1,4 @@
-const KEYWORDS = require('.//constants/KEYWORDS.js');
-const { COMMANDS } = KEYWORDS;
+const { COMMANDS } = require('.//constants/KEYWORDS.js');
 
 class Command {
   static isCommand(word) {
