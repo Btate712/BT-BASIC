@@ -63,7 +63,7 @@ class Scanner {
       this.currentTokenValue = this.extractNumber();
     } else if (this.currentTokenType == "STRING") {
       let i = 1;
-      while(this.code[this.currentIndex + i] != "\"" && ((this.currentIndex + i) < this.code.length)) {
+      while(this.lookAhead(i) != "\"" && ((this.currentIndex + i) < this.code.length)) {
         i++;
       }
       this.currentTokenValue = this.code.slice(this.currentIndex + 1, this.currentIndex + i);
@@ -78,19 +78,19 @@ class Scanner {
     let foundDecimal = false;
     let numberString = "" + this.currentCharacter();
     let i = 1;
-    while(Symbol.isNumeric(this.code[this.currentIndex + i]) && ((this.currentIndex + i) < this.code.length)) {
-      if(this.code[this.currentIndex + i] == ".") {
+    while(Symbol.isNumeric(this.lookAhead(i)) && ((this.currentIndex + i) < this.code.length)) {
+      if(this.lookAhead(i) == ".") {
         if(foundDecimal) {
           throw("Error - invalid number");
         }
         foundDecimal = true;
       }
-      numberString = numberString + this.code[this.currentIndex + i];
+      numberString = numberString + this.lookAhead(i);
       i++;
     }
     return foundDecimal ? parseFloat(numberString) : parseInt(numberString);
   }
-  
+
   getCurrentTokenLength() {
     if(this.currentTokenType == "NUMBER") {
       const length = ("" + this.currentTokenValue).length;
@@ -113,8 +113,8 @@ class Scanner {
     this.currentTokenLength = 1;
   }
 
-  lookAhead() {
-    return this.currentIndex < this.code.length - 1 ? this.code[this.currentIndex + 1] : " ";
+  lookAhead(i = 1) {
+    return this.currentIndex < this.code.length - 1 ? this.code[this.currentIndex + i] : " ";
   }
 
   lastToken() {
@@ -130,10 +130,10 @@ class Scanner {
     let i = 1;
 
     while(
-      Symbol.isAlpha(this.code[this.currentIndex + i]) || 
-      Symbol.isNumeric(this.code[this.currentIndex + i])
+      Symbol.isAlpha(this.lookAhead(i)) || 
+      Symbol.isNumeric(this.lookAhead(i))
       ) {
-      identifierString += this.code[this.currentIndex + i];
+      identifierString += this.lookAhead(i);
       i++;
     }
     return identifierString;
@@ -149,8 +149,8 @@ class Scanner {
     let i = 1;
     let word = this.currentCharacter();
 
-    while(this.code[this.currentIndex + i] != " " && this.currentIndex + i < this.code.length) {
-      word += this.code[this.currentIndex + i];
+    while(this.lookAhead(i) != " " && this.currentIndex + i < this.code.length) {
+      word += this.lookAhead(i);
       i++;
     }
     return word;
