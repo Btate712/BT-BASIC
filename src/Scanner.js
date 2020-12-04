@@ -130,10 +130,7 @@ class Scanner {
     let identifierString = this.currentCharacter();
     let i = 1;
 
-    while(
-      Symbol.isAlpha(this.lookAhead(i)) || 
-      Symbol.isNumeric(this.lookAhead(i))
-      ) {
+    while(Symbol.isAlpha(this.lookAhead(i)) || Symbol.isNumeric(this.lookAhead(i))) {
       identifierString += this.lookAhead(i);
       i++;
     }
